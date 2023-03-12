@@ -19,6 +19,7 @@ const TopKeys = ({ title, value }) => {
 const Navbar = ({ isShow, setIsShow }) => {
   const [stickyClass, setStickyClass] = useState("relative");
   const [isHover, setIsHover] = useState(false);
+  const [dropKey, setDropKey] = useState(0);
 
   useEffect(() => {
     window.addEventListener("scroll", stickNavbar);
@@ -32,17 +33,23 @@ const Navbar = ({ isShow, setIsShow }) => {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
       windowHeight > 30
-        ? setStickyClass("fixed top-0 left-0 z-50 w-screen")
+        ? setStickyClass("fixed top-0 left-0 z-50 w-screen bg-[#120D18]")
         : setStickyClass("relative");
     }
   };
-
+  const handleClick = (key) => {
+    if (key !== 7) {
+      if (dropKey !== key) setDropKey(key);
+      else setDropKey(0);
+    }
+  };
+  console.log(dropKey);
   return (
     <div className={`w-screen`}>
       <div className="md:block hidden">
         <div
           style={{ backgroundColor: "rgb(28,19,38)" }}
-          className=" h-8 flex justify-center items-center space-x-4 md:-ml-7 bg--900"
+          className=" h-8 flex justify-center items-center space-x-4 md:-ml-7"
         >
           <TopKeys title="Volume 24h" value="89,839 SOL" />
           <TopKeys title="Volume total" value="55,405,964 SOL" />
@@ -59,7 +66,7 @@ const Navbar = ({ isShow, setIsShow }) => {
       <>
         <div
           className={`${stickyClass}`}
-          style={{ backgroundColor: "#120D18" }}
+          // style={{ backgroundColor: "" }}
         >
           <div className={`h-16  md:px-4  items-center px-5 `}>
             <div className="hidden md:block">
@@ -140,6 +147,7 @@ const Navbar = ({ isShow, setIsShow }) => {
               </div>
             </div>
           </div>
+          {/* Web */}
           <div
             className={`h-screen bg-yellow-400 ${
               isHover ? "w-56" : "w-16"
@@ -148,12 +156,19 @@ const Navbar = ({ isShow, setIsShow }) => {
             onMouseLeave={() => setIsHover(false)}
             style={{ backgroundColor: "#120D18" }}
           >
-            <div className="py-1 pl-1">
+            <div
+              className={`py-1 pl-1 ${
+                isHover && "border-r border-[#2B2037] h-[90vh]"
+              } `}
+            >
               {menuList.map((item, index) => (
-                <div className="px-2 ">
+                <div className="px-2 cursor-pointer">
                   <div
                     className=" h-10 p-2 rounded-md w-full grid grid-cols-4 mt-2"
-                    // style={{ backgroundColor: id === 1 && "#25182E" }}
+                    style={{
+                      backgroundColor: dropKey === item.id && "#25182E",
+                    }}
+                    onClick={() => handleClick(item.id)}
                   >
                     <div className="col-span-3 ">
                       <div className="flex justify-start">
@@ -166,20 +181,44 @@ const Navbar = ({ isShow, setIsShow }) => {
                       </div>
                     </div>
 
-                    {isHover && (
-                      <div className="  flex items-center justify-center ">
-                        <Images.open />
-                      </div>
-                    )}
+                    {isHover &&
+                      item.open &&
+                      (dropKey !== item.id ? (
+                        <div
+                          className="  flex items-center justify-center "
+                          // onClick={() => setDropKey(item.id)}
+                        >
+                          <Images.open />
+                        </div>
+                      ) : (
+                        <div
+                          className="  flex items-center justify-center "
+                          // onClick={() => setDropKey("")}
+                        >
+                          <Images.close />
+                        </div>
+                      ))}
                   </div>
+                  {isHover && dropKey === item.id && (
+                    <div className=" mt-3 space-y-2 ">
+                      {item.children.map((child) => (
+                        <div className="ml-[4.5vh] lg:ml-[4vh] ">
+                          <h1 className="text-[13px] hover:text-gray-300 text-gray-500  w-fit cursor-pointer font-medium">
+                            {child}
+                          </h1>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           </div>
+          {/* Mobile */}
           <div className="block md:hidden">
             <div className="w-screen block md:hidden absolute">
               <div
-                className={`container text-white w-2/3 ${
+                className={`container text-white ${
                   isShow
                     ? "h-screen w-2/3 border-r border-x-emerald-50"
                     : "h-screen w-0 "
@@ -202,6 +241,7 @@ const Navbar = ({ isShow, setIsShow }) => {
                           <h1 className="text-sm">Connect Wallet</h1>
                         </button>
                       </div>
+                      {/* Mobile */}
                       <div className="mt-2 space-y-4 ">
                         {menuList.map((item, index) => (
                           <MenuItem
@@ -278,24 +318,68 @@ const menuList = [
     subMenuItem: [],
     icon: Images.icon1,
     open: true,
+    children: ["Popular collection", "Drop calendar", "Auction"],
   },
-  { id: 2, name: "Insights", subMenuItem: [], icon: Images.icon2, open: true },
+  {
+    id: 2,
+    name: "Insights",
+    subMenuItem: [],
+    icon: Images.icon2,
+    open: true,
+    children: ["Stats", "My Watchlist"],
+  },
   {
     id: 3,
     name: "Magic Eden List",
     subMenuItem: [],
     icon: Images.icon3,
     open: true,
+    children: ["Whitelists", "About", "Create a whitelist"],
   },
-  { id: 4, name: "Launchpad", subMenuItem: [], icon: Images.icon4, open: true },
+  {
+    id: 4,
+    name: "Launchpad",
+    subMenuItem: [],
+    icon: Images.icon4,
+    open: true,
+    children: ["Launches", "About", "Apply for launchpad"],
+  },
   {
     id: 5,
     name: "Eden Games",
     subMenuItem: [],
     icon: Images.icon5,
     open: true,
+    children: ["Home", "All Games"],
   },
-  { id: 6, name: "Creators", subMenuItem: [], icon: Images.icon6, open: true },
+  {
+    id: 6,
+    name: "Creators",
+    subMenuItem: [],
+    icon: Images.icon6,
+    open: true,
+    children: [
+      "Apply for listing",
+      "Apply for whitelist",
+      "Apply for launchpad",
+      "Apply for auctions",
+      "Submit announcement",
+    ],
+  },
   { id: 7, name: "Support", subMenuItem: [], icon: Images.icon7, open: false },
-  { id: 8, name: "Resources", subMenuItem: [], icon: Images.icon8, open: true },
+  {
+    id: 8,
+    name: "Resources",
+    subMenuItem: [],
+    icon: Images.icon8,
+    open: true,
+    children: [
+      "About Magic Eden",
+      "MagicDAO",
+      "Trust & Safety",
+      "Platform status",
+      "Careers",
+      "API",
+    ],
+  },
 ];
