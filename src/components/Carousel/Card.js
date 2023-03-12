@@ -35,11 +35,12 @@ const Card = ({ image }) => {
         <div className="col-span-4 md:order-1 order-3">
           <div className="mt-4 lg:py-24 col-span-11  lg:order-1 lg:col-span-5 2xl:col-span-4 md:px-10 px-8 md:py-10 ">
             <div className="flex flex-col justify-center   ">
-              <h1 className="text-5xl font-extrabold text-white">Title</h1>
+              <h1 className="text-5xl font-extrabold text-white">
+                Claynosaurz
+              </h1>
               <p className="mt-3 text-gray-500">
-                MetaStar Strikers is an action based arcade football game built
-                on Polygon, where players are immersed in an electrifying world,
-                scoring goals in online matches!
+                Travel back to distant lands. Explore the uncharted, discover
+                lost artifacts. Adventure awaits…
               </p>
             </div>
             <div className="">

@@ -20,10 +20,10 @@ function App() {
                 <Card image={carouselImages[0]} />
               </div>
             </div>
-            <div className="mt-32 px-4 ">
+            <div className="mt-12 md:mt-28 px-4 ">
               <div>
                 <div class="flex items-center gap-1 mb-4">
-                  <h2 class="text-xl sm:text-3xl font-bold inline text-white">
+                  <h2 class="text-lg sm:text-3xl font-bold inline text-white">
                     Trending announcements 📢
                   </h2>
                   <span class="border rounded px-[5px] py-1 mx-2 inline-flex items-center text-gray-50 text-center leading-none text-[10px] uppercase border-[#E53C74] bg-[#3D122B]">
