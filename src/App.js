@@ -1,7 +1,11 @@
+import { useState } from "react";
 import "./App.css";
 import { carouselImages } from "./assets/images";
 import Card from "./components/Carousel/Card";
 import Container from "./components/Container";
+import PopularCollection from "./components/PopularCollection";
+import Header from "./components/PopularCollection/Header";
+import PopularCard from "./components/PopularCollection/PopularCard";
 import TrendingCard from "./components/TrendingCard";
 
 function App() {
@@ -37,7 +41,14 @@ function App() {
                 <TrendingCard />
                 <TrendingCard />
               </div>
+              <h1 className="text-pink-600 text-xs mt-4">
+                Submit a creator announcement
+              </h1>
             </div>
+
+            <PopularCollection />
+
+            {/* Next */}
             <div className="mt-20 px-4 w-full flex justify-center">
               <div class="flex md:items-center flex-nowrap w-full gap-6 mb-3 text-white flex-col md:flex-row ">
                 <h2 class="text-xl sm:text-3xl font-bold ">Launchpad drops</h2>

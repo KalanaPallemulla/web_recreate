@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.me-dropdown-container .dropdown {
+  z-index: 9999;
+  display: none;
+  background: var(#09080d);
+  border: none;
+  box-shadow: 2px 2px 8px rgb(0 0 0 / 20%), 2px 4px 12px rgb(0 0 0 / 15%);
+  border-radius: 8px;
+}
